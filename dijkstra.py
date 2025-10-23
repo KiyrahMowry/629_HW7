@@ -12,9 +12,11 @@ class Vertex:
     def __lt__(self, other):
         return self.i < other.i
 
-g = [[0, 1, 0], 
-     [0, 0, 2],
-     [1, 0, 0]]
+g = [[0, 2, 12, 0, 0], 
+     [0, 0, 8, 0, 0],
+     [0, 0, 0, 6, 3],
+     [10, 0, 0, 0, 4],
+     [0, 4, 0, 2, 0]]
 
 s = 0
 
@@ -37,7 +39,7 @@ def RELAX(u:Vertex, v:Vertex, G, V, Q):
         # Update the global Vertex list
         V[v.i].d = v.d
         V[v.i].p = v.p
-        print("Relaxed " + str(v))
+        # print("Relaxed " + str(v))
 
         hq.heappush(Q, (v.d, v)) # Push another instance of v into the queue, with the updated values. 
 
@@ -48,16 +50,17 @@ def DIJKSTRA(G, s):
 
     
     while Q:
-        print(Q)
         dist, u = hq.heappop(Q)
         if dist > u.d: # If the node is outdated, then skip it
             continue
-        print("\nExploring " + str(u))
+        # print("\nExploring " + str(u))
         for i in range(len(G[u.i])):
             if G[u.i][i] != 0:
                 v = V[i]
-                print("...is connected to vertex " + str(v))
+                # print("...is connected to vertex " + str(v))
                 RELAX(u, v, G, V, Q) 
+
+        print(V)
 
     return V  
     
