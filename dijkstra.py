@@ -28,7 +28,6 @@ def INITIALIZE_SINGLE_SOURCE(G, Q, V, s):
         hq.heappush(Q, (v.d, v))
         V.append(v)
 
-
 def RELAX(u:Vertex, v:Vertex, G, V, Q):
     if v.d > u.d + G[u.i][v.i]:
         # Update v
@@ -45,7 +44,6 @@ def RELAX(u:Vertex, v:Vertex, G, V, Q):
 def DIJKSTRA(G, s):
     Q = [] # Min-Priority Queue
     V = [] # All vertices in G, by order of index in the adjacency list (G)
-    S = [] 
     INITIALIZE_SINGLE_SOURCE(G, Q, V, s)
 
     
@@ -53,17 +51,14 @@ def DIJKSTRA(G, s):
         print(Q)
         dist, u = hq.heappop(Q)
         if dist > u.d: # If the node is outdated, then skip it
-            print("Skipping " + str(u))
             continue
         print("\nExploring " + str(u))
-        S.append(u)
         for i in range(len(G[u.i])):
             if G[u.i][i] != 0:
                 v = V[i]
                 print("...is connected to vertex " + str(v))
                 RELAX(u, v, G, V, Q) 
 
-    return S  
+    return V  
     
-answer = DIJKSTRA(g, s)
-print(answer)
+print(DIJKSTRA(g, s))
